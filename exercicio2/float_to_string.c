@@ -23,15 +23,15 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
 
     unsigned int len = 0;
 
-    int normalized_value = (1 << 23) | mantissa; // 1,xxxxxxxxxxxxx
-
+    int normalized_value = (1 << 23) | mantissa; // 1,xxxxxxxxxxxxx 
+    int int_float; 
     if(exp >= 0) {
-        int int_float = normalized_value >> (23 - exp); // isolar parte inteira se expoente 0 ou positivo
+        int_float = normalized_value >> (23 - exp); // isolar parte inteira se expoente 0 ou positivo
     } else {
-        int int_float = 0; // parte inteira caso expoente negativo
+        int_float = 0; // parte inteira caso expoente negativo
     }
     
-    int frac = normalized_value & (1 << (23 - exp) - 1); // extrair parte fracionária
+    long frac = normalized_value & (1 << (23 - exp) - 1); // extrair parte fracionária
 
     long new_int_float = frac * 1000000; // obter 6 casas decimais
 
