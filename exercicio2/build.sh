@@ -1,3 +1,3 @@
 #!/bin/sh
 
-gcc float_to_string_test.c float_to_string.c -o float_to_string_test -g -Wall -pedantic
+gcc float_to_string_test.c float_to_string.c ../exercicio1/int_to_string.c -o float_to_string_test -g -Wall -pedantic
