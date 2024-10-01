@@ -26,9 +26,9 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
     int normalized_value = (1 << 23) | mantissa; // 1,xxxxxxxxxxxxx
 
     if(exp >= 0) {
-        int int_float = normalized_value >> (23 - exp); // isolar parte inteira
+        int int_float = normalized_value >> (23 - exp); // isolar parte inteira se expoente 0 ou positivo
     } else {
-        int int_float = 0;
+        int int_float = 0; // parte inteira caso expoente negativo
     }
     
     int frac = normalized_value & (1 << (23 - exp) - 1); // extrair parte fracionária
@@ -38,17 +38,14 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
     new_int_float = new_int_float >> (23 - exp); // isolar parte inteira
 
     
+
+
+
+
+
     if (sign) {
         buffer[len++] = '-';
     }
-    
-    
-    
-    normalized_value *= 1000000;
-
-    
-
-
 
     int size = sizeof(buffer) / sizeof(buffer[0]);
     size_t int_len = int_to_string(normalized_value, 10, buffer, size);
