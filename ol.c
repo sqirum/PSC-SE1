@@ -113,7 +113,7 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
     size_t int_len = int_to_string(integer_part, 10, int_buffer, sizeof(int_buffer));
     if (int_len == 0) return 0;
     
-    // Copiar parte inteira para o buffer principal
+    
     for (size_t i = 0; i < int_len; i++) {
         if (pos >= buffer_size - 8) return 0;  // Verificar se há espaço suficiente
         buffer[pos++] = int_buffer[i];
