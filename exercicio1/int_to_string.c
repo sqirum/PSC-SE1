@@ -55,10 +55,17 @@ size_t int_to_string(int value, int base, char buffer[], size_t buffer_size) {
     // Terminador
     buffer[buffer_idx] = '\0';
 
-    // Check Values
-    for(int i = 0; i < buffer_idx; i++) {
-        printf("%c\n", buffer[i]);
+    /**
+     * ! TESTE
+    printf("\nArray Int To String: [");
+    for (int i = 0; i < buffer_idx; i++) {
+        printf("%c", buffer[i]);
+        if (i < buffer_idx - 1) {
+            printf(", ");
+        }
     }
+    printf("]\n");
+    */
 
     return buffer_idx;
 }
