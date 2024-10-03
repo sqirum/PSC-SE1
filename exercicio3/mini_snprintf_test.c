@@ -57,8 +57,8 @@ void print_result(int i, size_t result_size) {
 			i, test_array[i].result_string, test_array[i].buffer);
 			error = 1;
 	}
-//	else
-//		printf("[%d] - OK\n", i);
+	else
+		printf("[%d] - OK\n", i);
 }
 
 int main() {
