@@ -21,6 +21,7 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
     int exp = bf.e - 127;
     unsigned int mantissa = bf.m;
     unsigned int pos = 0;
+    const long long decimal_places = 6LL;
     
 
     long int normalized_value = ((long) 1 << 23) | mantissa; // 1,xxxxxxxxxxxxx 
@@ -50,18 +51,23 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
         return 0; // pequeno para adicionar o ponto decimal
     }
 
-    long long frac_part = (frac * 1000000LL) >> (23 - exp); // 6 casas decimais + obter parte fracional
 
+    long long decimal_places_base10 = 1;
+    for(int i = 0; i < decimal_places; i++) {
+        decimal_places_base10 *= 10; // casas decimais
+    }
+    long long frac_part = (frac * decimal_places_base10) >> (23 - exp); // multiplica por 1M obtem parte fracional
+
+
+    char temp_arr[20];
+    int temp_len = int_to_string(frac_part, 10, temp_arr, sizeof(temp_arr));
+    for(int i = 0; i < decimal_places - temp_len; i++) {
+        buffer[pos++] = '0';
+    }
 
     len = int_to_string(frac_part, 10, buffer + pos, buffer_size - pos);
     if (len == 0) return 0;
     pos += len;
-
-
-    while (len < 6 && pos < buffer_size - 1) {
-        buffer[pos++] = '0';
-        len++;
-    }
 
     
     if (pos < buffer_size) {
@@ -71,7 +77,7 @@ size_t float_to_string(float value, char buffer[], size_t buffer_size) {
     }
 
     /**
-     * ! Teste
+     * ! Teste Array Float
     printf("\nArray Float: [");
     for (size_t i = 0; i < pos; i++) {
         printf("%c", buffer[i]);

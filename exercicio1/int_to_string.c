@@ -56,7 +56,7 @@ size_t int_to_string(int value, int base, char buffer[], size_t buffer_size) {
     buffer[buffer_idx] = '\0';
 
     /**
-     * ! TESTE
+     * ! Teste Array Int To String
     printf("\nArray Int To String: [");
     for (int i = 0; i < buffer_idx; i++) {
         printf("%c", buffer[i]);
