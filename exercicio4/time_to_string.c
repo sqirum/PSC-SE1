@@ -24,33 +24,33 @@ size_t time_to_string(struct tm *tm, char *buffer, size_t buffer_size) {
         "quinta-feira", "sexta-feira", "sábado"
     };
 
-    // Verificar se temos espaço suficiente no buffer
-    // O maior dia da semana é "quarta-feira" que tem 12 caracteres
-    // Mais o resto do formato ", DD-MM-YYYY, HH:MM:SS" que tem 22 caracteres
-    // Então precisamos de pelo menos 35 caracteres (34 + nulo terminador)
-
-    if (buffer_size < 35) {
+    const int min_buffer_size = 35;
+    if (buffer_size < min_buffer_size) {
         return 0;
     }
 
-    // Ajustes para o ano e mês
-    int year = tm->tm_year + 1900;
-    int month = tm->tm_mon + 1;
-
-    // Verificação de limites para tm_wday
     if (tm->tm_wday < 0 || tm->tm_wday > 6) {
-        // Se tm_wday for inválido, usar valores padrão conforme o teste
         return mini_snprintf(buffer, buffer_size,
             "domingo, 00-01-1900, 00:00:00");
     }
 
+    int year = tm->tm_year + 1900;
+    int month = tm->tm_mon + 1;
+
+    char day[3], mon[3], hour[3], min[3], sec[3], year_str[5];
+    
+    // Converter cada número para string com zero à esquerda
+    mini_snprintf(day, sizeof(day), "%d%d", tm->tm_mday / 10, tm->tm_mday % 10);
+    mini_snprintf(mon, sizeof(mon), "%d%d", month / 10, month % 10);
+    mini_snprintf(hour, sizeof(hour), "%d%d", tm->tm_hour / 10, tm->tm_hour % 10);
+    mini_snprintf(min, sizeof(min), "%d%d", tm->tm_min / 10, tm->tm_min % 10);
+    mini_snprintf(sec, sizeof(sec), "%d%d", tm->tm_sec / 10, tm->tm_sec % 10);
+    mini_snprintf(year_str, sizeof(year_str), "%d%d%d%d", 
+        year / 1000, (year / 100) % 10, (year / 10) % 10, year % 10);
+
     return mini_snprintf(buffer, buffer_size,
-        "%s, %02d-%02d-%04d, %02d:%02d:%02d",
+        "%s, %s-%s-%s, %s:%s:%s",
         weekDays[tm->tm_wday],
-        tm->tm_mday,
-        month,
-        year,
-        tm->tm_hour,
-        tm->tm_min,
-        tm->tm_sec);
+        day, mon, year_str,
+        hour, min, sec);
 }
