@@ -67,6 +67,9 @@ void print_result(int i, size_t result_size, char *result_string) {
 				i, test_array[i].result_string, result_string);
 			error = 1;
 		}
+	else {
+		printf("[%d] - OK\n", i);
+	}
 }
 
 size_t time_to_string(struct tm *tm, char *buffer, size_t buffer_size);

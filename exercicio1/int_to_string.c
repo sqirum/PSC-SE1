@@ -9,7 +9,7 @@ size_t int_to_string(int value, int base, char buffer[], size_t buffer_size) {
     const int terminator = 1;
     const char *prefix = "";
     char digits[] = "0123456789abcdef";
-    char temp_arr[33]; // int_max_bits + terminator => não funciona colocar o size como variável?
+    char temp_arr[33];
     int idx = 0;
     int prefix_len = 0;
     unsigned int uvalue = (unsigned int)value;
